@@ -4,12 +4,18 @@ import numpy as np
 import sklearn
 
 
-def predict(property: dict):
+def predicting_price(property: dict):
     pipeline = joblib.load("../data/pipeline_xgboost.pkl")
-
-    
+    expected_features_order = [
+        'property_type', 'province', 'latitude', 'longitude', 'property_state',
+        'build_year', 'bedroom_count', 'livable_surface', 'total_surface',
+        'garage', 'terrace', 'energy_consumption_kWh/m2/year', 'swimming_pool',
+        'preschool_distance_m', 'train_station_distance_m', 'supermarket_distance_m',
+        'nearest_city_distance_km', 'Salary med/decla'
+    ]
 
     df = pd.DataFrame([property])
+    df = df[expected_features_order]
     y = np.expm1(pipeline.predict(df))[0]
 
     return y
@@ -72,5 +78,5 @@ if __name__ == '__main__':
             'nearest_city_distance_km': 0.5,
             'Salary med/decla': 33000.0
         }
-    y = predict(exemple)
+    y = predicting_price(exemple)
     print(y)
