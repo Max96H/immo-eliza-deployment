@@ -9,6 +9,12 @@ def predicting_price(property: dict):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     MODEL_PATH = os.path.join(BASE_DIR, "..", "data", "pipeline_xgboost.pkl")
     
+    # --- DEBUG LINES START ---
+    print(f"DEBUG: Python is executing from: {BASE_DIR}")
+    print(f"DEBUG: Looking for model at absolute path: {MODEL_PATH}")
+    print(f"DEBUG: Files in parent directory are: {os.listdir(os.path.join(BASE_DIR, '..'))}")
+    # --- DEBUG LINES END ---
+
     pipeline = joblib.load(MODEL_PATH)
     expected_features_order = [
         'property_type', 'province', 'latitude', 'longitude', 'property_state',
