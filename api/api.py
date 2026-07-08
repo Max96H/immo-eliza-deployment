@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from predict import predicting_price
+import os
 
-app = FastAPI()
+PORT = os.environ.get("PORT", 8000)
+app = FastAPI(port=PORT)
+
 
 class Item(BaseModel):
     latitude: float
