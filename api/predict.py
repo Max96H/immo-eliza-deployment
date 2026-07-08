@@ -1,5 +1,14 @@
-import joblib
 import os
+import sys
+
+# 1. Get the absolute path to the 'api' folder
+API_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Add 'api' directly to Python's deployment search paths to help the joblib find the src folder
+if API_DIR not in sys.path:
+    sys.path.insert(0, API_DIR)
+
+import joblib
 import numpy as np
 import pandas as pd
 import sklearn
@@ -8,12 +17,6 @@ import sklearn
 def predicting_price(property: dict):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     MODEL_PATH = os.path.join(BASE_DIR, "..", "data", "pipeline_xgboost.pkl")
-    
-    # --- DEBUG LINES START ---
-    print(f"DEBUG: Python is executing from: {BASE_DIR}")
-    print(f"DEBUG: Looking for model at absolute path: {MODEL_PATH}")
-    print(f"DEBUG: Files in parent directory are: {os.listdir(os.path.join(BASE_DIR, '..'))}")
-    # --- DEBUG LINES END ---
 
     pipeline = joblib.load(MODEL_PATH)
     expected_features_order = [
