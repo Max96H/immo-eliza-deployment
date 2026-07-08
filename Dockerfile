@@ -18,4 +18,6 @@ RUN pip install -r requirements.txt
 
 # Run the app
 # Set host to 0.0.0.0 to make it run on the container's network
-CMD uvicorn app:app --host 0.0.0.0
+# sh -c Wraps the command in a shell so that it can read environment variables
+# ${PORT:-8000} allows to run locally if not with render
+CMD ["sh", "-c", "uvicorn api.api:app --host 0.0.0.0 --port ${PORT:-8000}"]
