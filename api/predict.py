@@ -1,11 +1,15 @@
 import joblib
-import pandas as pd
+import os
 import numpy as np
+import pandas as pd
 import sklearn
 
 
 def predicting_price(property: dict):
-    pipeline = joblib.load("../data/pipeline_xgboost.pkl")
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    MODEL_PATH = os.path.join(BASE_DIR, "..", "data", "pipeline_xgboost.pkl")
+    
+    pipeline = joblib.load(MODEL_PATH)
     expected_features_order = [
         'property_type', 'province', 'latitude', 'longitude', 'property_state',
         'build_year', 'bedroom_count', 'livable_surface', 'total_surface',
