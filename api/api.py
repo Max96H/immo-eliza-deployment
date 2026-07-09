@@ -10,7 +10,7 @@ COORD_PATH = os.path.join(BASE_DIR, "..", "data", "zipcode_coordinates.csv")
 SALARY_PATH = os.path.join(BASE_DIR, "..", "data", "salary_postcode.csv")
 
 coordinates = pd.read_csv(COORD_PATH)
-salaries = pd.read_csv(SALARY_PATH)
+salaries = pd.read_csv(SALARY_PATH, sep=";")
 salaries['Salary med/decla'] = salaries['Salary med/decla'].str.replace(r'\u202f', '', regex=True).astype(float)
 
 app = FastAPI()
