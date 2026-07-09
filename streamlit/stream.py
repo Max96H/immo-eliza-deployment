@@ -1,4 +1,4 @@
-#TO RUN : streamlit run stream.py
+#TO RUN : streamlit run streamlit/stream.py
 import streamlit as st
 import json
 import requests
@@ -19,7 +19,7 @@ inputs["total_surface"] = st.slider("Total surface : ", 0, 1000, 100, 10)
 states = ['Normal', 'To renovate', 'Excellent', 'New', 'Fully renovated', 
            'To demolish', 'Under construction', 'To restore']
 inputs["property_state"] = st.pills("Property state :", states, selection_mode="single")
-st.markdown(f"Your selected options : {inputs["property_state"]}.")
+st.markdown(f"Your selected option : {inputs["property_state"]}.")
 
 inputs["build_year"] = st.slider("Build year :", min_value=1500, max_value=2030, value=1985)
 
@@ -43,7 +43,8 @@ inputs["supermarket_distance_m"] = st.slider("Supermarket distance (m) :", 0, 10
 inputs["nearest_city_distance_km"] = st.number_input("Nearest city distance (km) :", value=0.5)
 
 if st.button("Predict"):
-    res = requests.post(url=f"{BACKEND_URL}/predict", json=inputs)
+    with st.spinner("Calculating...", show_time=True):
+        res = requests.post(url=f"{BACKEND_URL}/predict", json=inputs)
 
     if res.status_code == 200:
         number = res.json()["prediction"]
