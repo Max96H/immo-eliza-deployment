@@ -51,6 +51,10 @@ if st.button("Predict"):
             number = res.json()["prediction"]
             result = f"{number:,.2f} €".replace(",", " ").replace(".", ",")
             st.subheader(f"Evaluation : {result}")
+        elif res.status_code == 400:
+            error_msg = res.json().get('detail', 'An error occurred')
+            st.error(f"Error: {error_msg}")
         else:
             st.error("Something went wrong... Try again later!")
+            st.error(f"Server returned status {res.status_code}")
         

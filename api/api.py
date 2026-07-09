@@ -18,7 +18,7 @@ salaries['postcode'] = salaries['postcode'].astype(str)
 app = FastAPI()
 
 class Item(BaseModel):
-    postcode: int
+    postcode: str
     property_type: str
     province: str
     property_state: str | None = 'Unknown'
