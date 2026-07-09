@@ -1,6 +1,5 @@
 #TO RUN : streamlit run streamlit/stream.py
 import streamlit as st
-import json
 import requests
 
 BACKEND_URL = "https://immo-eliza-deployment-max.onrender.com"
@@ -23,8 +22,7 @@ st.markdown(f"Your selected option : {inputs["property_state"]}.")
 
 inputs["build_year"] = st.slider("Build year :", min_value=1500, max_value=2030, value=1985)
 
-inputs["latitude"] = st.number_input("Latitude :", min_value=49.3, max_value=51.3, value=50.85)
-inputs["longitude"] = st.number_input("Longitude :", min_value=2.32, max_value=6.24, value=4.35)
+inputs["postcode"] = st.number_input("Zipcode :", value=None, placeholer="1000")
 
 provinces = ['antwerp', 'limburg', 'east-flanders', 'vlaams-brabant', 
              'west-flanders', 'brussels', 'hainaut', 'liege', 'luxembourg',
@@ -43,13 +41,16 @@ inputs["supermarket_distance_m"] = st.slider("Supermarket distance (m) :", 0, 10
 inputs["nearest_city_distance_km"] = st.number_input("Nearest city distance (km) :", value=0.5)
 
 if st.button("Predict"):
-    with st.spinner("Calculating...", show_time=True):
-        res = requests.post(url=f"{BACKEND_URL}/predict", json=inputs)
-
-    if res.status_code == 200:
-        number = res.json()["prediction"]
-        result = f"{number:,.2f} €".replace(",", " ").replace(".", ",")
-        st.subheader(f"Evaluation : {result}")
+    if not (inputs["postcode"]):
+        st.warning("Please fill in a zipcode !")
     else:
-        st.error(f"Backend Error {res.status_code:.2f}: Look at your Render Logs!")
-        st.text(res.text)
+        with st.spinner("Calculating...", show_time=True):
+            res = requests.post(url=f"{BACKEND_URL}/predict", json=inputs)
+
+        if res.status_code == 200:
+            number = res.json()["prediction"]
+            result = f"{number:,.2f} €".replace(",", " ").replace(".", ",")
+            st.subheader(f"Evaluation : {result}")
+        else:
+            st.error("Something went wrong... Try again later!")
+        
