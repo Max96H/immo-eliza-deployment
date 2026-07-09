@@ -22,7 +22,7 @@ st.markdown(f"Your selected option : {inputs["property_state"]}.")
 
 inputs["build_year"] = st.slider("Build year :", min_value=1500, max_value=2030, value=1985)
 
-inputs["postcode"] = st.number_input("Zipcode :", value=None, placeholer="1000")
+inputs["postcode"] = st.number_input("Zipcode :", value=None, placeholder="1000")
 
 provinces = ['antwerp', 'limburg', 'east-flanders', 'vlaams-brabant', 
              'west-flanders', 'brussels', 'hainaut', 'liege', 'luxembourg',
