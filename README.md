@@ -73,6 +73,12 @@ docker run -p 8000:8000 immo-eliza
 uvicorn api.api:app --reload
 ```
 
+or
+
+```bash
+fastapi dev
+```
+
 The API will be available at `http://localhost:8000`
 
 **API Endpoints:**
@@ -130,7 +136,9 @@ The prediction model uses the following features:
 | `preschool_distance_m` | int | Distance to nearest preschool (m) |
 | `train_station_distance_m` | int | Distance to train station (m) |
 | `supermarket_distance_m` | int | Distance to supermarket (m) |
-| `nearest_city_distance_km` | float | Distance to nearest city (km) |
+| `nearest_city_distance_km` | float | Distance to nearest city (km) |  
+| `Salary med/decla` | float | Median salary per household within the postcode (€) |  
+
 
 ## Data Files
 
@@ -164,13 +172,6 @@ immo-eliza-deployment/
 
 ## Development
 
-### Adding New Features
-
-To add new input features to the model:
-1. Update the `Item` class in `api/api.py`
-2. Update the form in `streamlit/stream.py`
-3. Retrain the model in `predict.py`
-
 ### Environment Variables
 
 Set the `PORT` environment variable to customize the API port (defaults to 8000):
@@ -184,7 +185,7 @@ This project is open source and available under the MIT License.
 
 ## Author
 
-Created by [Max96H](https://github.com/Max96H)
+Created by [Max96H](https://github.com/Max96H) [Linkedin](https://www.linkedin.com/in/max-h-540881409/)
 
 ## Support
 
