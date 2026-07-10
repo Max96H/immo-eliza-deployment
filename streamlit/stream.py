@@ -16,7 +16,7 @@ LANGUAGES = {
         "build_year": "Build year :",
         "zipcode": "Enter Belgian Zipcode:",
         "bedrooms": "Amount of bedrooms :",
-        "simming_pool": "Swimming pool :",
+        "swimming_pool": "Swimming pool :",
         "garage": "Garage :",
         "terrace": "Terrace :",
         "en_cons": "Energy consumption (kWh/m2/year) :",
