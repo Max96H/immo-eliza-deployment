@@ -17,6 +17,7 @@ salaries['postcode'] = salaries['postcode'].astype(str)
 
 app = FastAPI()
 
+# Helps validate and parse query parameters
 class Item(BaseModel):
     postcode: str
     property_type: str
@@ -41,7 +42,11 @@ def root():
 
 @app.post("/predict")
 def predict(item: Item):
-
+    """
+    Function receives data, parses it, calls on a saved regression model and sends back the predicted price
+    :param: a BaseModel of the query parameters
+    Returns a dictionary with the price
+    """
     property = item.model_dump()
 
     postcode = property.pop("postcode")
